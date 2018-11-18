@@ -29,7 +29,7 @@ public class TaskController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getTask")
     public TaskDto getTask(Long id) {
-        return new TaskDto(1L, "test title", "test_content");
+        return taskMapper.mapToTaskDto(service.getTaskById(id));
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateTask")
