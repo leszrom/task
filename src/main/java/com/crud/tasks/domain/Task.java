@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,9 +14,7 @@ import javax.validation.constraints.NotNull;
 @Entity(name = "tasks")
 public class Task {
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", unique = true)
     private Long id;
 
     @Column(name = "name")
