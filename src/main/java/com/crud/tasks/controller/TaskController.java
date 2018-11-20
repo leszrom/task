@@ -17,11 +17,15 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/v1/task")
 public class TaskController {
-    public static final String ID_DOES_NOT_EXIST = "ID doesn't exist!";
+    private static final String ID_DOES_NOT_EXIST = "ID doesn't exist!";
+    private final DbService service;
+    private final TaskMapper taskMapper;
+
     @Autowired
-    private DbService service;
-    @Autowired
-    private TaskMapper taskMapper;
+    public TaskController(DbService service, TaskMapper taskMapper) {
+        this.service = service;
+        this.taskMapper = taskMapper;
+    }
 
     @RequestMapping(method = RequestMethod.POST, value = "createTask", consumes = APPLICATION_JSON_VALUE)
     public Task createTask(@RequestBody TaskDto taskDto) {
