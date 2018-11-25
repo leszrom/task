@@ -10,8 +10,12 @@ import java.util.Optional;
 
 @Service
 public class DbService {
+    private final TaskRepository taskRepository;
+
     @Autowired
-    private TaskRepository taskRepository;
+    public DbService(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
 
     public Task saveTask(final Task task) {
         return taskRepository.save(task);
