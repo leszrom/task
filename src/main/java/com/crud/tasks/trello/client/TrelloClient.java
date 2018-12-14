@@ -1,6 +1,8 @@
 package com.crud.tasks.trello.client;
 
 import com.crud.tasks.domain.TrelloBoardDto;
+import com.crud.tasks.domain.TrelloCardDto;
+import com.crud.tasks.domain.TrelloCardDtoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -34,19 +36,38 @@ public class TrelloClient {
         this.restTemplate = restTemplate;
     }
 
-    private URI buildUrl() {
-        return UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/" + trelloAppUsername + "/boards")
-                .queryParam("key", trelloAppKey)
-                .queryParam("token", trelloAppToken)
-                .queryParam("fields", "name,id")
-                .build().encode().toUri();
-    }
 
     public List<TrelloBoardDto> getTrelloBoards() {
-        TrelloBoardDto[] boardsResponse = restTemplate.getForObject(buildUrl(), TrelloBoardDto[].class);
+        URI url = buildGetBoardsUrl();
+        TrelloBoardDto[] boardsResponse = restTemplate.getForObject(url, TrelloBoardDto[].class);
 
         return Optional.ofNullable(boardsResponse)
                 .map(Arrays::asList)
                 .orElseGet(ArrayList::new);
+    }
+
+    public TrelloCardDto createNewCard(TrelloCardDtoRequest trelloCardDtoRequest) {
+        URI url = buildCreateNewCardUrl(trelloCardDtoRequest);
+        return restTemplate.postForObject(url, null, TrelloCardDto.class);
+    }
+
+    private URI buildGetBoardsUrl() {
+        return UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/" + trelloAppUsername + "/boards")
+                .queryParam("key", trelloAppKey)
+                .queryParam("token", trelloAppToken)
+                .queryParam("fields", "name,id")
+                .queryParam("lists", "all")
+                .build().encode().toUri();
+    }
+
+    private URI buildCreateNewCardUrl(TrelloCardDtoRequest trelloCardDtoRequest) {
+        return UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/cards")
+                .queryParam("key", trelloAppKey)
+                .queryParam("token", trelloAppToken)
+                .queryParam("name", trelloCardDtoRequest.getName())
+                .queryParam("desc", trelloCardDtoRequest.getDescription())
+                .queryParam("pos", trelloCardDtoRequest.getPosition())
+                .queryParam("idList", trelloCardDtoRequest.getListId())
+                .build().encode().toUri();
     }
 }
