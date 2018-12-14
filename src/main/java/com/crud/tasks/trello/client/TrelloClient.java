@@ -1,8 +1,8 @@
 package com.crud.tasks.trello.client;
 
-import com.crud.tasks.domain.TrelloBoardDto;
-import com.crud.tasks.domain.TrelloCardDto;
-import com.crud.tasks.domain.TrelloCardDtoRequest;
+import com.crud.tasks.domain.trello.TrelloBoardDto;
+import com.crud.tasks.domain.trello.TrelloCardDto;
+import com.crud.tasks.domain.trello.TrelloCardDtoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
