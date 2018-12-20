@@ -12,7 +12,6 @@ import java.util.List;
 
 @Service
 public class DbService {
-    private static final String ID_DOES_NOT_EXIST = "ID doesn't exist!";
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
 
@@ -32,7 +31,7 @@ public class DbService {
     }
 
     public TaskDto getTaskById(final Long id) throws TaskNotFoundException {
-        Task task = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException(ID_DOES_NOT_EXIST));
+        Task task = taskRepository.findById(id).orElseThrow(TaskNotFoundException::new);
         return taskMapper.mapToTaskDto(task);
     }
 

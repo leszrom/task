@@ -31,7 +31,7 @@ public class TaskController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getTask")
-    public TaskDto getTask(Long id) throws TaskNotFoundException {
+    public TaskDto getTask(Long id) {
         return service.getTaskById(id);
     }
 
