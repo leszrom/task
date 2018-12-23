@@ -24,11 +24,15 @@ public class EmailScheduler {
 
     @Scheduled(cron = "0 0 10 * * *")
     public void sendInformationEmail() {
+        emailService.send(createInformationMail());
+    }
+
+    private Mail createInformationMail() {
         long size = taskRepository.count();
-        emailService.send(new Mail(
+        return new Mail(
                 adminConfig.getAdminMail(),
                 "",
                 SUBJECT,
-                "Currently in database you got: " + size + (size == 1 ? " task" : " tasks")));
+                "Currently in database you got: " + size + (size == 1 ? " task" : " tasks"));
     }
 }
