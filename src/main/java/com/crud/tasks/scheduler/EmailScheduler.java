@@ -9,14 +9,14 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EmailSheduler {
+public class EmailScheduler {
     private static final String SUBJECT = "Tasks: Once a day email";
     private SimpleEmailService emailService;
     private TaskRepository taskRepository;
     private AdminConfig adminConfig;
 
     @Autowired
-    public EmailSheduler(SimpleEmailService emailService, TaskRepository taskRepository, AdminConfig adminConfig) {
+    public EmailScheduler(SimpleEmailService emailService, TaskRepository taskRepository, AdminConfig adminConfig) {
         this.emailService = emailService;
         this.taskRepository = taskRepository;
         this.adminConfig = adminConfig;
