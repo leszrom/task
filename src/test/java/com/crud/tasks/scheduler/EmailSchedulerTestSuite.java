@@ -4,8 +4,10 @@ import com.crud.tasks.config.AdminConfig;
 import com.crud.tasks.domain.Mail;
 import com.crud.tasks.repository.TaskRepository;
 import com.crud.tasks.service.SimpleEmailService;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -13,7 +15,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EmailSchedulerTestSuite {
-    private static final String SUBJECT = "Tasks: Once a day email";
     @InjectMocks
     private EmailScheduler emailScheduler;
 
@@ -27,17 +28,34 @@ public class EmailSchedulerTestSuite {
     private SimpleEmailService emailService;
 
     @Test
-    public void should_return_Name() {
+    public void should_contain_plural_form_TASKS_in_text_message() {
         //Given
-        Mail mail = new Mail("test@test.com", "", SUBJECT, "Currently in database you got: 1 task");
-
-        //When
-        Mockito.when(taskRepository.count()).thenReturn((long) 1);
+        Mockito.when(taskRepository.count()).thenReturn(2L);
         Mockito.when(adminConfig.getAdminMail()).thenReturn("test@test.pl");
 
+        ArgumentCaptor<Mail> emailCaptor = ArgumentCaptor.forClass(Mail.class);
+
+        //When
         emailScheduler.sendInformationEmail();
+        Mockito.verify(emailService).send(emailCaptor.capture());
 
         //Then
-        Mockito.verify(emailService).send(mail);
+        Assert.assertTrue(emailCaptor.getValue().getMessage().endsWith("2 tasks"));
+    }
+
+    @Test
+    public void should_contain_singular_form_TASK_in_text_message() {
+        //Given
+        Mockito.when(taskRepository.count()).thenReturn(1L);
+        Mockito.when(adminConfig.getAdminMail()).thenReturn("test@test.pl");
+
+        ArgumentCaptor<Mail> argument = ArgumentCaptor.forClass(Mail.class);
+
+        //When
+        emailScheduler.sendInformationEmail();
+        Mockito.verify(emailService).send(argument.capture());
+
+        //Then
+        Assert.assertTrue(argument.getValue().getMessage().endsWith("1 task"));
     }
 }
