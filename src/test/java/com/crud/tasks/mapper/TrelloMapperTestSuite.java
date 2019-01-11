@@ -1,8 +1,10 @@
 package com.crud.tasks.mapper;
 
 import com.crud.tasks.domain.TrelloBoard;
+import com.crud.tasks.domain.TrelloCard;
 import com.crud.tasks.domain.TrelloList;
 import com.crud.tasks.domain.trello.TrelloBoardDto;
+import com.crud.tasks.domain.trello.TrelloCardDtoRequest;
 import com.crud.tasks.domain.trello.TrelloListDto;
 import org.junit.Assert;
 import org.junit.Test;
@@ -104,24 +106,32 @@ public class TrelloMapperTestSuite {
     }
 
     @Test
-    public void should_return_MapToCardDtoRequest() {
+    public void should_return_trello_card_dto_request_after_mapping_from_trello_card() {
         //Given
+        TrelloCard card = new TrelloCard("name", "description", "position", "listId");
 
         //When
+        TrelloCardDtoRequest cardDtoRequest = trelloMapper.mapToCardDtoRequest(card);
 
         //Then
-
+        Assert.assertEquals("name", cardDtoRequest.getName());
+        Assert.assertEquals("description", cardDtoRequest.getDescription());
+        Assert.assertEquals("position", cardDtoRequest.getPosition());
+        Assert.assertEquals("listId", cardDtoRequest.getListId());
     }
 
     @Test
-    public void should_return_MapToCard() {
+    public void should_return_trello_card_after_mapping_from_trello_card_dto_request() {
         //Given
+        TrelloCardDtoRequest cardDtoRequest = new TrelloCardDtoRequest("name", "description", "position", "listId");
 
         //When
+        TrelloCard card = trelloMapper.mapToCard(cardDtoRequest);
 
         //Then
-
+        Assert.assertEquals("name", card.getName());
+        Assert.assertEquals("description", card.getDescription());
+        Assert.assertEquals("position", card.getPosition());
+        Assert.assertEquals("listId", card.getListId());
     }
-
-
 }
