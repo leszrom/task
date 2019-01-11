@@ -1,8 +1,10 @@
 package com.crud.tasks.mapper;
 
 import com.crud.tasks.domain.TrelloBoard;
+import com.crud.tasks.domain.TrelloCard;
 import com.crud.tasks.domain.TrelloList;
 import com.crud.tasks.domain.trello.TrelloBoardDto;
+import com.crud.tasks.domain.trello.TrelloCardDtoRequest;
 import com.crud.tasks.domain.trello.TrelloListDto;
 import org.springframework.stereotype.Component;
 
@@ -38,4 +40,13 @@ public class TrelloMapper {
                 .collect(Collectors.toList());
     }
 
+    public TrelloCardDtoRequest mapToCardDtoRequest(final TrelloCard trelloCard) {
+        return new TrelloCardDtoRequest(trelloCard.getName(), trelloCard.getDescription(),
+                trelloCard.getPosition(), trelloCard.getListId());
+    }
+
+    public TrelloCard mapToCard(final TrelloCardDtoRequest trelloCardDtoRequest) {
+        return new TrelloCard(trelloCardDtoRequest.getName(), trelloCardDtoRequest.getDescription(),
+                trelloCardDtoRequest.getPosition(), trelloCardDtoRequest.getListId());
+    }
 }
