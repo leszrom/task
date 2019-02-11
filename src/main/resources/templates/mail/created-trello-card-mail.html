@@ -132,7 +132,7 @@
                                                             <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #3498db; border-radius: 5px; text-align: center;">
                                                                 <a th:href="${tasks_url}" th:text="${button}"
                                                                    target="_blank"
-                                                                   style="display: inline-block; color: #ffffff; background-color: #3498db; border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #3498db;">BUTTON_NAME</a>
+                                                                   style="display: inline-block; color: #ffffff; background-color: #3498db; border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #3498db;"></a>
                                                             </td>
                                                         </tr>
                                                         </tbody>
@@ -141,8 +141,9 @@
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                            GOODBYE_MESSAGE</p>
+                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;"
+                                           th:text="${goodbye_message}">
+                                        </p>
                                     </td>
                                 </tr>
                             </table>
@@ -159,7 +160,11 @@
                         <tr>
                             <td class="content-block"
                                 style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: center;">
-                                <span class="apple-link" style="color: #999999; font-size: 12px; text-align: center;">COMPANY_DETAILS</span>
+                                <span class="apple-link" style="color: #999999; font-size: 12px; text-align: center;"
+                                      th:text="${company_name}"></span>
+                                <br/>
+                                <span class="apple-link" style="color: #999999; font-size: 12px; text-align: center;"
+                                      th:text="${street}+' '+${number}"></span>
                             </td>
                         </tr>
                     </table>
