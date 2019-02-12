@@ -118,11 +118,11 @@
 
                                         <p th:if="${is_friend}"
                                            style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                            Yo <span th:text="${admin_config.getAdminName()}"></span></p>
+                                            Yo <span th:text="${admin_config.getAdminName()}"></span>,</p>
 
                                         <p th:unless="${is_friend}"
                                            style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                            Dear <span th:text="${admin_config.getAdminName()}"></span></p>
+                                            Dear <span th:text="${admin_config.getAdminName()}"></span>,</p>
 
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;"
                                            th:text="${message}"></p>
@@ -150,6 +150,12 @@
                                             </tr>
                                             </tbody>
                                         </table>
+                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
+                                            Application functionality:
+                                        </p>
+                                        <ul th:each="function : ${application_functionality}">
+                                            <li th:text="${function}"></li>
+                                        </ul>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;"
                                            th:text="${goodbye_message}">
                                         </p>
