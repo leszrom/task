@@ -1,6 +1,8 @@
 package com.crud.tasks.service;
 
 import com.crud.tasks.config.AdminConfig;
+import com.crud.tasks.domain.Task;
+import com.crud.tasks.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -14,11 +16,13 @@ import java.util.List;
 public class MailCreatorService {
     private final TemplateEngine templateEngine;
     private final AdminConfig adminConfig;
+    private final TaskRepository taskRepository;
 
     @Autowired
-    public MailCreatorService(@Qualifier("templateEngine") TemplateEngine templateEngine, AdminConfig adminConfig) {
+    public MailCreatorService(@Qualifier("templateEngine") TemplateEngine templateEngine, AdminConfig adminConfig, TaskRepository taskRepository) {
         this.templateEngine = templateEngine;
         this.adminConfig = adminConfig;
+        this.taskRepository = taskRepository;
     }
 
     public String buildTrelloCardEmail(String message) {
@@ -29,6 +33,7 @@ public class MailCreatorService {
         functionality.add("Provides connection with Trello Account");
         functionality.add("Application allows sending tasks to Trello");
 
+        List<Task> tasks = taskRepository.findAll();
 
         Context context = new Context();
         context.setVariable("message", message);
@@ -39,6 +44,7 @@ public class MailCreatorService {
         context.setVariable("is_friend", false);
         context.setVariable("admin_config", adminConfig);
         context.setVariable("application_functionality", functionality);
+        context.setVariable("tasks_list", tasks);
 
         if (message.contains("New card")) {
             templateName = "mail/created-trello-card-mail";
