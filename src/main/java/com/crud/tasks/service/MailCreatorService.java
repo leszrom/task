@@ -23,6 +23,7 @@ public class MailCreatorService {
 
     public String buildTrelloCardEmail(String message) {
 
+        String templateName;
         List<String> functionality = new ArrayList<>();
         functionality.add("You can manage your tasks");
         functionality.add("Provides connection with Trello Account");
@@ -34,10 +35,16 @@ public class MailCreatorService {
         context.setVariable("tasks_url", "http://localhost:8888/tasks_frontend/");
         context.setVariable("button", "Visit website");
         context.setVariable("goodbye_message", "This message was sent automatically. Do not reply.");
-        context.setVariable("show_button", false);
+        context.setVariable("show_button", true);
         context.setVariable("is_friend", false);
         context.setVariable("admin_config", adminConfig);
         context.setVariable("application_functionality", functionality);
-        return templateEngine.process("mail/created-trello-card-mail", context);
+
+        if (message.contains("New card")) {
+            templateName = "mail/created-trello-card-mail";
+        } else {
+            templateName = "mail/current-number-of-tasks";
+        }
+        return templateEngine.process(templateName, context);
     }
 }
