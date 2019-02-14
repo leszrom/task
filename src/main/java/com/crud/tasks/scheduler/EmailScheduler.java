@@ -22,7 +22,7 @@ public class EmailScheduler {
         this.adminConfig = adminConfig;
     }
 
-    @Scheduled(cron = "0 0 10 * * *")
+    @Scheduled(cron = "0 0 10 ? * *")
     public void sendInformationEmail() {
         emailService.send(createInformationMail());
     }
