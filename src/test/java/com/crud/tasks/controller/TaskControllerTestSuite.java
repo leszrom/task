@@ -45,7 +45,7 @@ public class TaskControllerTestSuite {
         String jsonContent = gson.toJson(taskDto);
 
         //When
-        mockMvc.perform(post("/v1/task/createTask")
+        mockMvc.perform(post("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
@@ -63,7 +63,7 @@ public class TaskControllerTestSuite {
         Mockito.when(dbService.getAllTasks()).thenReturn(allTasks);
 
         //When
-        mockMvc.perform(get("/v1/task/getTasks")
+        mockMvc.perform(get("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON))
                 //Then
                 .andExpect(status().is(200))
@@ -81,7 +81,7 @@ public class TaskControllerTestSuite {
         Mockito.when(dbService.getTaskById(1L)).thenReturn(task);
 
         //When
-        mockMvc.perform(get("/v1/task/getTask?id=1")
+        mockMvc.perform(get("/v1/tasks/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 //Then
                 .andExpect(status().is(200))
@@ -101,7 +101,7 @@ public class TaskControllerTestSuite {
         String jsonContent = gson.toJson(taskDto);
 
         //When
-        mockMvc.perform(put("/v1/task/updateTask")
+        mockMvc.perform(put("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
@@ -114,7 +114,7 @@ public class TaskControllerTestSuite {
     public void should_delete_task_by_given_id() throws Exception {
         //Given
         //When
-        mockMvc.perform(delete("/v1/task/deleteTask?id=1")
+        mockMvc.perform(delete("/v1/tasks/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 //Then
                 .andExpect(status().is(200));
