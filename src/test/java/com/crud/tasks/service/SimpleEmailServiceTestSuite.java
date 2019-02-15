@@ -4,11 +4,13 @@ import com.crud.tasks.domain.Mail;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SimpleEmailServiceTestSuite {
@@ -19,55 +21,28 @@ public class SimpleEmailServiceTestSuite {
     @Mock
     private JavaMailSender javaMailSender;
 
-    @Test
-    public void should_send_email_while_CC_is_filled() {
-        //Given
-        Mail mail = new Mail("test@test.com", "Test", "Test", "Test Message");
+    @Mock
+    private MailCreatorService mailCreatorService;
 
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(mail.getMailTo());
-        mailMessage.setCc(mail.getMailCc());
-        mailMessage.setSubject(mail.getSubject());
-        mailMessage.setText(mail.getMessage());
+    @Test
+    public void should_send_mime_email() {
+        //Given
+        Mail mail = new Mail("test@test.com", "testCC@test.com", "Subject", "Test Message");
+
+        Mockito.when(mailCreatorService.buildTrelloCardEmail("Test Message")).thenReturn("Build email");
+
+        MimeMessagePreparator simpleMimeMessage = mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setTo("test@test.com");
+            messageHelper.setCc("testCC@test.com");
+            messageHelper.setSubject("Subject");
+            messageHelper.setText("Build email", true);
+        };
 
         //When
         simpleEmailService.send(mail);
 
         //Then
-        Mockito.verify(javaMailSender, Mockito.times(1)).send(mailMessage);
-    }
-
-    @Test
-    public void should_send_email_while_CC_is_empty() {
-        //Given
-        Mail mail = new Mail("test@test.com", "", "Test", "Test Message");
-
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(mail.getMailTo());
-        mailMessage.setSubject(mail.getSubject());
-        mailMessage.setText(mail.getMessage());
-
-        //When
-        simpleEmailService.send(mail);
-
-        //Then
-        Mockito.verify(javaMailSender, Mockito.times(1)).send(mailMessage);
-    }
-
-    @Test
-    public void should_send_email_while_CC_is_null() {
-        //Given
-        Mail mail = new Mail("test@test.com", null, "Test", "Test Message");
-
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(mail.getMailTo());
-        mailMessage.setSubject(mail.getSubject());
-        mailMessage.setText(mail.getMessage());
-
-        //When
-        simpleEmailService.send(mail);
-
-        //Then
-        Mockito.verify(javaMailSender, Mockito.times(1)).send(mailMessage);
+        Mockito.verify(javaMailSender, Mockito.times(1)).send((MimeMessagePreparator) Matchers.any());
     }
 }
