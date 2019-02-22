@@ -2,26 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title of my simple welcome site</title>
+    <title>Tasks CRUD App</title>
 </head>
 <body>
-    <h1>First impression of my page</h1>
-    <!--/*@thymesVar id="variable" type="com.crud.tasks.controller.StaticWebPageController"*/-->
-    <span th:text="${variable}"></span>
-
-    <br/>
-
-    <!--/*@thymesVar id="one" type="com.crud.tasks.controller.StaticWebPageController"*/-->
-    <!--/*@thymesVar id="two" type="com.crud.tasks.controller.StaticWebPageController"*/-->
-
-    <span th:text="${two}+' * '+${two}+' = '"></span>
-    <span th:text="${two}*${two}"></span>
-    <br/>
-    <span th:text="${two}+' * '+${two}+' + '+${two}+' = '"></span>
-    <span th:text="${two}*${two}+${two}"></span>
-    <br/>
-    <span th:text="${two}+' - '+${two}+' * '+${two}+' = '"></span>
-    <span th:text="${two}-${two}*${two}"></span>
-
+<h1>Tasks CRUD Application</h1>
+<!--/*@thymesVar id="kodilla_url" type="com.crud.tasks.controller.StaticWebPageController"*/-->
+<!--/*@thymesVar id="github_url" type="com.crud.tasks.controller.StaticWebPageController"*/-->
+<!--/*@thymesVar id="frontend_url" type="com.crud.tasks.controller.StaticWebPageController"*/-->
+<!--/*@thymesVar id="swagger_url" type="com.crud.tasks.controller.StaticWebPageController"*/-->
+<span>This application was made during the the 6-month 'Java Developer' course organized by </span>
+<a th:href="${kodilla_url}">'Kodilla'</a>
+<br/><br/>
+<a th:href="${github_url}">Source code on GitHub</a>
+<br/><br/>
+<a th:href="${frontend_url}">Frontend on GitHub Pages</a>
+<br/><br/>
+<a th:href="${swagger_url}">Swagger documentation</a>
+<br/><br/>
 </body>
 </html>
