@@ -60,8 +60,8 @@ public class TrelloValidatorTestSuite {
     public void should_return_not_changed_list_of_boards_after_filtering() {
         //Given
         List<TrelloBoard> boardList = new ArrayList<>();
-        boardList.add(new TrelloBoard("id_1", "name_1", new ArrayList<>()));
-        boardList.add(new TrelloBoard("id_2", "name_2", new ArrayList<>()));
+        boardList.add(new TrelloBoard("id_1", "Tasks_example_board", new ArrayList<>()));
+        boardList.add(new TrelloBoard("id_2", "Tasks_example_board", new ArrayList<>()));
 
         //When
         List<TrelloBoard> filteredBoardList = trelloValidator.validateTrelloBoards(boardList);
@@ -71,11 +71,11 @@ public class TrelloValidatorTestSuite {
     }
 
     @Test
-    public void should_return_filtered_list_of_boards_after_filtering_boards_with_name_test() {
+    public void should_return_filtered_list_of_boards_after_filtering_boards() {
         //Given
         List<TrelloBoard> boardList = new ArrayList<>();
         boardList.add(new TrelloBoard("id_1", "name_1", new ArrayList<>()));
-        boardList.add(new TrelloBoard("id_2", "tEsT", new ArrayList<>()));
+        boardList.add(new TrelloBoard("id_2", "Tasks_example_board", new ArrayList<>()));
 
         //When
         List<TrelloBoard> filteredBoardList = trelloValidator.validateTrelloBoards(boardList);
