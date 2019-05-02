@@ -1,7 +1,6 @@
 # *Tasks*
->An application for managing task list via the website. Tasks meets the CRUD assumptions. Tasks communicate with [Trello public API](https://developers.trello.com/reference#introduction) and let you sent created tasks to chosen list on Trello board.
->
->Tasks was written in Java 8, and the project was built using Gradle and Spring Boot.
+An application for managing task list via the website. *Tasks* communicate with [Trello public API](https://developers.trello.com/reference#introduction). Provides connection with Trello Account and let you sent created tasks to chosen list on Trello board. *Tasks* send email after creating card in Trello and every day email with number of tasks in database.\
+`Java 8` `Gradle` `Spring Boot` `Hibernate` `CRUD` `REST` `Swagger` `Lombok`
 
 ## Table of contents
 * [Development guidelines](#development-guidelines)
@@ -12,22 +11,17 @@
 * [Source](#source)
 
 ## Development guidelines
-* `gradle clean build` - build application
-* `gradle bootRun` - start application (available under localhost:8080)
+* `./gradlew clean build` - build application (tests will be triggered)
+* `./gradlew bootRun` - start application (available under localhost:8080)
 
 ## Api Documentation
 Tasks has an API that meets the REST standard. The application accepts the following HTTP requests: GET, POST, PUT, DELETE.
 
-> [Swagger documentation](https://infinite-atoll-21692.herokuapp.com/swagger-ui.html#/)
->
-> https://infinite-atoll-21692.herokuapp.com/swagger-ui.html#/
->
->![endpoints](https://user-images.githubusercontent.com/41355377/57110186-ef7baf00-6d37-11e9-9889-d96b868b98f1.PNG)
+[Swagger documentation](https://infinite-atoll-21692.herokuapp.com/swagger-ui.html#/)
 
-Swagger documentation:\
-https://infinite-atoll-21692.herokuapp.com/swagger-ui.html#/
+![endpoints](https://user-images.githubusercontent.com/41355377/57110186-ef7baf00-6d37-11e9-9889-d96b868b98f1.PNG)
 
-##Database
+## Database
 Tasks uses a relational MySQL database. The database stores a single table containing tasks. Each task has a title, description and a unique id.
 
 ## Technologies
@@ -47,7 +41,7 @@ Project is created with:
 1. Spring framework - allows you to reverse the control over the creation and management of objects and the injection of dependencies.
 2. Hibernate framework - an ORM tool (relational-object mapping) implementing the JPA standard (unified API API). It allows you to map Java objects to Entities and vice versa.
 3. Mysql connector java - a connector that allows you to connect to the MySQL database.
-4. Lombok - a library allowing the use of annotations such as: @Getter, @Setter, @AllArgsConstructor, @NoArgsConstructor, which at the time of compilation automatically write characteristic fragmennts of the code, ie getters, setters or constructors.
+4. Lombok - a library allowing the use of annotations such as: @Getter, @Setter, @AllArgsConstructor, @NoArgsConstructor, which at the time of compilation automatically write characteristic fragments of the code, ie getters, setters or constructors.
 5. Mockito - testing
 
 ## Deployment
