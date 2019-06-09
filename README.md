@@ -1,6 +1,7 @@
 # *Tasks*
-An application for managing task list via the website. *Tasks* communicate with [Trello public API](https://developers.trello.com/reference#introduction). Provides connection with Trello Account and let you sent created tasks to chosen list on Trello board. *Tasks* send email after creating card in Trello and every day email with number of tasks in database.\
-`Java 8` `Gradle` `Spring Boot` `Hibernate` `CRUD` `REST` `Swagger` `Lombok`
+An application for managing task list via the website. *Tasks* communicate with [Trello public API](https://developers.trello.com/reference#introduction). Provides connection with Trello Account and let you sent created tasks to chosen list on Trello board. *Tasks* send email after creating card in Trello and every day email with number of tasks in database.
+*Tasks* is covered with unit test (JUnit & Mockito), and integration tests (MockMvc).\
+`Java 8` `Gradle` `Spring Boot` `Hibernate` `CRUD` `REST` `Mail` `Thymeleaf` `Swagger` `Actuator` `Lombok` `JUnit` `Mockito` `MockMvc`
 
 ## Table of contents
 * [Development guidelines](#development-guidelines)
@@ -8,6 +9,7 @@ An application for managing task list via the website. *Tasks* communicate with 
 * [Database](#database)
 * [Technologies](#technologies)
 * [Deployment](#deployment)
+* [Actuator](#actuator)
 * [Source](#source)
 
 ## Development guidelines
@@ -49,7 +51,15 @@ Project is created with:
 * Back-end: https://infinite-atoll-21692.herokuapp.com/
 * Front-end: https://leszrom.github.io/
 
-The Application deployed on Heroku, used PostgreSql instead of MySQL, because Heroku offer Postgres database for free.
+The Application deployed on Heroku, used PostgreSql instead of MySQL, because Heroku offers Postgres database for free.
+
+## Actuator
+**Spring Actuator** supply additional endpoints:
+* [metrics](http://infinite-atoll-21692.herokuapp.com/metrics)
+* [health](http://infinite-atoll-21692.herokuapp.com/health)
+* [beans](http://infinite-atoll-21692.herokuapp.com/beans)
+* [mappings](http://infinite-atoll-21692.herokuapp.com/mappings)
+* [info](http://infinite-atoll-21692.herokuapp.com/info)
 
 ## Source
 This app was created and developed during 'Java Developer' programming course ([Kodilla.com](https://kodilla.com/pl)).
